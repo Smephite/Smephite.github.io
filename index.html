@@ -1,0 +1,1108 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Kai Berszin</title>
+        <style>
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+
+            :root {
+                --bg: #080c18;
+                --surface: #0f1628;
+                --border: #1e2a45;
+                --text: #e8eef8;
+                --muted: #8a9bc0;
+                --accent: #60a5fa;
+                --violet: #a78bfa;
+                --accent-bg: rgba(96, 165, 250, 0.1);
+                --violet-bg: rgba(167, 139, 250, 0.1);
+                --orcid: #a6ce39;
+            }
+
+            html {
+                scroll-behavior: smooth;
+            }
+
+            body {
+                background: var(--bg);
+                color: var(--text);
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui,
+                    sans-serif;
+                line-height: 1.65;
+                -webkit-font-smoothing: antialiased;
+            }
+
+            /* ── Hero ─────────────────────────────────────────── */
+            #hero {
+                min-height: 100vh;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                padding: 2rem;
+                position: relative;
+                overflow: hidden;
+            }
+
+            #hero::before {
+                content: "";
+                position: absolute;
+                top: 30%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 600px;
+                height: 600px;
+                background: radial-gradient(
+                    circle,
+                    rgba(96, 165, 250, 0.07) 0%,
+                    transparent 70%
+                );
+                pointer-events: none;
+            }
+
+            .avatar {
+                width: 180px;
+                height: 180px;
+                border-radius: 50%;
+                background: var(--surface);
+                border: 1px solid var(--border);
+                margin-bottom: 1.75rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
+            }
+
+            .avatar svg {
+                width: 56px;
+                height: 56px;
+                color: var(--border);
+            }
+            .avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            h1.hero-name {
+                font-size: clamp(2.5rem, 6vw, 3.75rem);
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                margin-bottom: 0.75rem;
+                background: linear-gradient(135deg, #e8eef8 0%, #94b4dc 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .hero-tagline {
+                font-size: 1.05rem;
+                color: var(--muted);
+                max-width: 520px;
+                margin-bottom: 2.25rem;
+                line-height: 1.7;
+            }
+
+            .social-links {
+                display: flex;
+                gap: 0.75rem;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .social-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                padding: 0.5rem 1.1rem;
+                border: 1px solid var(--border);
+                border-radius: 0.5rem;
+                color: var(--muted);
+                text-decoration: none;
+                font-size: 0.85rem;
+                font-weight: 500;
+                background: var(--surface);
+                transition:
+                    border-color 0.2s,
+                    color 0.2s,
+                    background 0.2s;
+            }
+
+            .social-link:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+                background: var(--accent-bg);
+            }
+            .social-link.orcid:hover {
+                border-color: var(--orcid);
+                color: var(--orcid);
+                background: rgba(166, 206, 57, 0.1);
+            }
+
+            .scroll-hint {
+                position: absolute;
+                bottom: 2.5rem;
+                left: 50%;
+                transform: translateX(-50%);
+                color: var(--border);
+                animation: bounce 2.4s ease-in-out infinite;
+            }
+
+            @keyframes bounce {
+                0%,
+                100% {
+                    transform: translateX(-50%) translateY(0);
+                    opacity: 0.5;
+                }
+                50% {
+                    transform: translateX(-50%) translateY(8px);
+                    opacity: 1;
+                }
+            }
+
+            /* ── About ────────────────────────────────────────── */
+            #about {
+                max-width: 660px;
+                margin: 0 auto;
+                padding: 6rem 2rem;
+                text-align: center;
+            }
+
+            .section-eyebrow {
+                display: inline-block;
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: var(--accent);
+                margin-bottom: 1.25rem;
+            }
+
+            .about-text {
+                font-size: 1.1rem;
+                color: var(--muted);
+                line-height: 1.85;
+            }
+            .about-text strong {
+                color: var(--text);
+                font-weight: 600;
+            }
+
+            /* ── Timeline ─────────────────────────────────────── */
+            #timeline {
+                max-width: 780px;
+                margin: 0 auto;
+                padding: 0 2rem 6rem;
+            }
+
+            .section-header {
+                text-align: center;
+                margin-bottom: 2rem;
+            }
+            .section-title {
+                font-size: 1.85rem;
+                font-weight: 700;
+                letter-spacing: -0.02em;
+            }
+
+            .timeline {
+                position: relative;
+                padding-left: 1.75rem;
+            }
+
+            .timeline::before {
+                content: "";
+                position: absolute;
+                left: 3px;
+                top: 6px;
+                bottom: 0;
+                width: 2px;
+                background: linear-gradient(
+                    to bottom,
+                    var(--accent) 0%,
+                    var(--violet) 60%,
+                    transparent 100%
+                );
+            }
+
+            .timeline-entry {
+                position: relative;
+                margin-bottom: 2.75rem;
+                padding: 1.25rem 1.5rem;
+                border: 1px solid transparent;
+                border-radius: 0.75rem;
+                transition:
+                    border-color 0.25s,
+                    background 0.25s;
+            }
+
+            .timeline-entry:hover {
+                border-color: var(--border);
+                background: var(--surface);
+            }
+
+            .timeline-entry::before {
+                content: "";
+                position: absolute;
+                left: -1.65rem;
+                top: 1.5rem;
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                border: 2px solid var(--bg);
+                background: var(--accent);
+                transition: transform 0.2s;
+            }
+
+            .timeline-entry.education::before {
+                background: var(--violet);
+            }
+            .timeline-entry:hover::before {
+                transform: scale(1.3);
+            }
+
+            .entry-meta {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+                margin-bottom: 0.4rem;
+                flex-wrap: wrap;
+            }
+
+            .entry-date {
+                font-size: 0.73rem;
+                font-weight: 600;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--muted);
+            }
+
+            .entry-badge {
+                font-size: 0.65rem;
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                text-transform: uppercase;
+                padding: 0.15rem 0.55rem;
+                border-radius: 0.25rem;
+            }
+            .badge-work {
+                background: var(--accent-bg);
+                color: var(--accent);
+            }
+            .badge-education {
+                background: var(--violet-bg);
+                color: var(--violet);
+            }
+
+            .entry-title {
+                font-size: 1rem;
+                font-weight: 600;
+                margin-bottom: 0.2rem;
+                color: var(--text);
+            }
+            .entry-org {
+                font-size: 0.85rem;
+                color: var(--muted);
+                margin-bottom: 0.65rem;
+            }
+
+            .entry-details {
+                list-style: none;
+                display: flex;
+                flex-direction: column;
+                gap: 0.25rem;
+            }
+
+            .entry-details li {
+                font-size: 0.875rem;
+                color: var(--muted);
+                padding-left: 1rem;
+                position: relative;
+            }
+
+            .entry-details li::before {
+                content: "·";
+                position: absolute;
+                left: 0;
+                color: var(--accent);
+                font-size: 1.1rem;
+                line-height: 1.4;
+            }
+
+            .education .entry-details li::before {
+                color: var(--violet);
+            }
+
+            /* ── Timeline entry links ─────────────────────────── */
+            .entry-links {
+                display: flex;
+                gap: 0.4rem;
+                flex-wrap: wrap;
+                margin-top: 0.75rem;
+            }
+
+            .entry-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.25rem;
+                font-size: 0.72rem;
+                font-weight: 600;
+                letter-spacing: 0.03em;
+                color: var(--accent);
+                text-decoration: none;
+                padding: 0.2rem 0.6rem;
+                border: 1px solid rgba(96, 165, 250, 0.3);
+                border-radius: 0.3rem;
+                background: var(--accent-bg);
+                cursor: pointer;
+                transition:
+                    background 0.15s,
+                    border-color 0.15s;
+            }
+
+            .entry-link:hover {
+                background: rgba(96, 165, 250, 0.2);
+                border-color: var(--accent);
+            }
+
+            /* ── Publications ─────────────────────────────────── */
+            #publications {
+                max-width: 780px;
+                margin: 0 auto;
+                padding: 0 2rem 6rem;
+            }
+
+            .pub-list {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .pub-loading {
+                font-size: 0.875rem;
+                color: var(--muted);
+                padding: 1.5rem;
+                text-align: center;
+                border: 1px dashed var(--border);
+                border-radius: 0.75rem;
+            }
+
+            .pub-item {
+                display: grid;
+                grid-template-columns: 3.5rem 1fr;
+                gap: 1rem;
+                padding: 1.25rem 1.5rem;
+                border: 1px solid var(--border);
+                border-radius: 0.75rem;
+                background: var(--surface);
+                transition:
+                    border-color 0.2s,
+                    background 0.2s,
+                    box-shadow 0.2s;
+            }
+
+            .pub-item:hover {
+                border-color: var(--accent);
+            }
+
+            /* Publication highlight — triggered when jumping from a timeline link */
+            @keyframes pub-highlight {
+                0% {
+                    border-color: var(--accent);
+                    background: rgba(96, 165, 250, 0.18);
+                    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.25);
+                }
+                65% {
+                    border-color: var(--accent);
+                    background: rgba(96, 165, 250, 0.1);
+                    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+                }
+                100% {
+                    border-color: var(--border);
+                    background: var(--surface);
+                    box-shadow: none;
+                }
+            }
+
+            .pub-item.pub-highlight {
+                animation: pub-highlight 2.5s ease-out forwards;
+            }
+
+            .pub-year {
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: var(--accent);
+                letter-spacing: 0.05em;
+                padding-top: 0.15rem;
+            }
+            .pub-title {
+                font-size: 0.9rem;
+                font-weight: 600;
+                color: var(--text);
+                margin-bottom: 0.3rem;
+                line-height: 1.5;
+            }
+            .pub-meta {
+                font-size: 0.8rem;
+                color: var(--muted);
+                margin-bottom: 0.4rem;
+                line-height: 1.5;
+            }
+
+            .pub-doi {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.25rem;
+                font-size: 0.775rem;
+                color: var(--accent);
+                text-decoration: none;
+                font-family: "SF Mono", "Fira Code", monospace;
+            }
+
+            .pub-doi:hover {
+                text-decoration: underline;
+            }
+
+            .pub-orcid-link {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.4rem;
+                font-size: 0.82rem;
+                color: var(--muted);
+                text-decoration: none;
+                transition: color 0.2s;
+            }
+
+            .pub-orcid-link:hover {
+                color: var(--orcid);
+            }
+
+            /* ── Languages ────────────────────────────────────── */
+            #langs {
+                max-width: 780px;
+                margin: 0 auto;
+                padding: 0 2rem 8rem;
+            }
+
+            .langs-card {
+                padding: 1.5rem;
+                border: 1px solid var(--border);
+                border-radius: 0.75rem;
+                background: var(--surface);
+                max-width: 320px;
+            }
+
+            .langs-card h3 {
+                font-size: 0.7rem;
+                font-weight: 700;
+                letter-spacing: 0.12em;
+                text-transform: uppercase;
+                color: var(--accent);
+                margin-bottom: 1rem;
+            }
+
+            .lang-list {
+                display: flex;
+                flex-direction: column;
+                gap: 0.6rem;
+            }
+
+            .lang-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                font-size: 0.875rem;
+            }
+            .lang-name {
+                color: var(--text);
+                font-weight: 500;
+            }
+
+            .lang-level {
+                font-size: 0.75rem;
+                color: var(--muted);
+                background: rgba(255, 255, 255, 0.04);
+                padding: 0.15rem 0.5rem;
+                border-radius: 0.25rem;
+                border: 1px solid var(--border);
+            }
+
+            /* ── Footer ───────────────────────────────────────── */
+            footer {
+                border-top: 1px solid var(--border);
+                padding: 2rem;
+                text-align: center;
+                color: var(--muted);
+                font-size: 0.8rem;
+            }
+            footer a {
+                color: var(--muted);
+                text-decoration: none;
+            }
+            footer a:hover {
+                color: var(--accent);
+            }
+
+            /* ── Scroll-to-top button ────────────────────────── */
+            #back-to-top {
+                position: fixed;
+                bottom: 2rem;
+                right: 2rem;
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                border: 1px solid var(--border);
+                background: var(--surface);
+                color: var(--muted);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.25s, border-color 0.2s, color 0.2s, background 0.2s;
+                z-index: 99;
+            }
+
+            #back-to-top.visible {
+                opacity: 1;
+                pointer-events: auto;
+            }
+
+            #back-to-top:hover {
+                border-color: var(--accent);
+                color: var(--accent);
+                background: var(--accent-bg);
+            }
+
+            /* ── Responsive ───────────────────────────────────── */
+            @media (max-width: 640px) {
+                .timeline {
+                    padding-left: 1.25rem;
+                }
+                .timeline-entry::before {
+                    left: -1.15rem;
+                }
+                .pub-item {
+                    grid-template-columns: 1fr;
+                    gap: 0.25rem;
+                }
+            }
+        </style>
+    </head>
+    <body>
+
+        <section id="hero">
+            <div class="avatar"></div>
+            <h1 class="hero-name"></h1>
+            <p class="hero-tagline"></p>
+            <div class="social-links"></div>
+            <div class="scroll-hint">
+                <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <polyline points="6 9 12 15 18 9" />
+                </svg>
+            </div>
+        </section>
+
+        <section id="about">
+            <span class="section-eyebrow">About</span>
+            <p class="about-text"></p>
+        </section>
+
+        <section id="timeline">
+            <div class="section-header">
+                <span class="section-eyebrow">Journey</span>
+                <h2 class="section-title">Experience &amp; Education</h2>
+            </div>
+            <div class="timeline"></div>
+        </section>
+
+        <section id="publications">
+            <div class="section-header">
+                <span class="section-eyebrow">Research</span>
+                <h2 class="section-title">Publications</h2>
+            </div>
+            <div class="pub-list"></div>
+            <a class="pub-orcid-link" target="_blank" rel="noopener">
+                <svg
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                >
+                    <path
+                        d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 01-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c2.359 0 3.9-1.303 3.9-3.722 0-2.016-1.303-3.722-3.9-3.722h-2.297z"
+                    />
+                </svg>
+                See full publication record on ORCID →
+            </a>
+        </section>
+
+        <section id="langs">
+            <div class="langs-card">
+                <h3>Languages</h3>
+                <div class="lang-list"></div>
+            </div>
+        </section>
+
+        <footer>
+            <p class="footer-text"></p>
+        </footer>
+
+        <button id="back-to-top" aria-label="Back to top">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="18 15 12 9 6 15"/>
+            </svg>
+        </button>
+
+        <script src="data.js"></script>
+        <script src="publications.js"></script>
+        <script>
+            // ── BibTeX parser ──────────────────────────────────────────────────────────
+            function parseBibtex(src) {
+                var i = 0,
+                    n = src.length,
+                    entries = [];
+
+                function ws() {
+                    while (i < n && src[i] <= " ") i++;
+                }
+
+                function readBraced() {
+                    i++; // skip {
+                    var depth = 1,
+                        s = "";
+                    while (i < n) {
+                        var c = src[i++];
+                        if (c === "{") {
+                            depth++;
+                            s += c;
+                        } else if (c === "}") {
+                            if (--depth === 0) break;
+                            s += c;
+                        } else s += c;
+                    }
+                    return s;
+                }
+
+                function readQuoted() {
+                    i++; // skip "
+                    var s = "";
+                    while (i < n && src[i] !== '"') s += src[i++];
+                    i++; // skip closing "
+                    return s;
+                }
+
+                function readValue() {
+                    ws();
+                    if (src[i] === "{") return readBraced();
+                    if (src[i] === '"') return readQuoted();
+                    // bare (number or macro)
+                    var s = "";
+                    while (
+                        i < n &&
+                        src[i] !== "," &&
+                        src[i] !== "}" &&
+                        src[i] !== ")"
+                    )
+                        s += src[i++];
+                    return s.trim();
+                }
+
+                while (i < n) {
+                    var at = src.indexOf("@", i);
+                    if (at < 0) break;
+                    i = at + 1;
+                    ws();
+
+                    var type = "";
+                    while (i < n && /\w/.test(src[i]))
+                        type += src[i++].toLowerCase();
+                    ws();
+
+                    var open = src[i];
+                    if (open !== "{" && open !== "(") continue;
+                    i++;
+
+                    // skip @comment / @string / @preamble
+                    if (
+                        type === "comment" ||
+                        type === "string" ||
+                        type === "preamble"
+                    ) {
+                        var depth = 1;
+                        while (i < n && depth > 0) {
+                            if (src[i] === "{" || src[i] === "(") depth++;
+                            else if (src[i] === "}" || src[i] === ")") depth--;
+                            i++;
+                        }
+                        continue;
+                    }
+
+                    // cite key
+                    ws();
+                    var key = "";
+                    while (
+                        i < n &&
+                        src[i] !== "," &&
+                        src[i] !== " " &&
+                        src[i] !== "\t" &&
+                        src[i] !== "\n"
+                    )
+                        key += src[i++];
+                    ws();
+                    if (src[i] === ",") i++;
+
+                    // fields
+                    var fields = {};
+                    while (i < n) {
+                        ws();
+                        if (src[i] === "}" || src[i] === ")") {
+                            i++;
+                            break;
+                        }
+                        if (src[i] === ",") {
+                            i++;
+                            continue;
+                        }
+
+                        var fname = "";
+                        while (i < n && /\w/.test(src[i]))
+                            fname += src[i++].toLowerCase();
+                        if (!fname) {
+                            i++;
+                            continue;
+                        }
+
+                        ws();
+                        if (src[i] !== "=") continue;
+                        i++; // skip =
+
+                        fields[fname] = readValue();
+                    }
+
+                    entries.push({ type: type, key: key, fields: fields });
+                }
+
+                return entries;
+            }
+
+            // Strip TeX brace groups used for case protection: {RTK} → RTK
+            function stripBraces(s) {
+                return s ? s.replace(/\{([^}]*)\}/g, "$1") : "";
+            }
+
+            function formatBibtexEntry(e) {
+                var f = e.fields;
+                var year = parseInt(f.year) || 0;
+                var title = stripBraces(f.title || "");
+                var authors = stripBraces(f.author || "");
+                var doi = (f.doi || "").trim();
+                var src = stripBraces(f.journal || f.booktitle || "");
+                var venue = src;
+                if (f.volume) venue += ", vol. " + f.volume;
+                if (f.number) venue += ", no. " + f.number;
+                if (f.pages) venue += ", pp. " + f.pages.replace(/--?/g, "–");
+                if (year) venue += ", " + year;
+                return {
+                    key: e.key,
+                    year: year,
+                    title: title,
+                    authors: authors,
+                    venue: venue.replace(/^,\s*/, ""),
+                    doi: doi,
+                };
+            }
+
+            // ── Main renderer ──────────────────────────────────────────────────────────
+            (function (S) {
+                var ICONS = {
+                    email: '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,12 2,6"/></svg>',
+                    linkedin:
+                        '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
+                    github: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>',
+                    orcid: '<svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.372 0 0 5.372 0 12s5.372 12 12 12 12-5.372 12-12S18.628 0 12 0zM7.369 4.378c.525 0 .947.431.947.947s-.422.947-.947.947a.95.95 0 01-.947-.947c0-.525.422-.947.947-.947zm-.722 3.038h1.444v10.041H6.647V7.416zm3.562 0h3.9c3.712 0 5.344 2.653 5.344 5.025 0 2.578-2.016 5.016-5.325 5.016h-3.919V7.416zm1.444 1.303v7.444h2.297c2.359 0 3.9-1.303 3.9-3.722 0-2.016-1.303-3.722-3.9-3.722h-2.297z"/></svg>',
+                    user: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>',
+                    external:
+                        '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>',
+                    paper: '<svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>',
+                };
+
+                function esc(s) {
+                    return String(s)
+                        .replace(/&/g, "&amp;")
+                        .replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;")
+                        .replace(/"/g, "&quot;");
+                }
+
+                function set(sel, prop, val) {
+                    var el = document.querySelector(sel);
+                    if (el) el[prop] = val;
+                }
+
+                // ── Meta ────────────────────────────────────────────────
+                set("title", "textContent", S.name);
+                set(".hero-name", "textContent", S.name);
+                set(".hero-tagline", "innerHTML", esc(S.tagline).replace(/\\~/g, "\0TILDE\0").replace(/~/g, "&nbsp;").replace(/\0TILDE\0/g, "~").replace(/\n/g, "<br>").replace(/(—{2,})/g, '<span style="letter-spacing:-0.3em">$1</span>'));
+
+                // ── Avatar ──────────────────────────────────────────────
+                document.querySelector(".avatar").innerHTML = S.photo
+                    ? '<img src="' +
+                      esc(S.photo) +
+                      '" alt="' +
+                      esc(S.name) +
+                      '">'
+                    : ICONS.user;
+
+                // ── Social links ─────────────────────────────────────────
+                var emailHref =
+                    "mailto:" +
+                    S.social.email.user +
+                    "@" +
+                    S.social.email.domain;
+                var soc =
+                    '<a class="social-link" href="' +
+                    emailHref +
+                    '">' +
+                    ICONS.email +
+                    " Email</a>";
+
+                if (S.social.linkedin && S.social.linkedin !== "#")
+                    soc +=
+                        '<a class="social-link" href="' +
+                        esc(S.social.linkedin) +
+                        '" target="_blank" rel="noopener">' +
+                        ICONS.linkedin +
+                        " LinkedIn</a>";
+                if (S.social.github && S.social.github !== "#")
+                    soc +=
+                        '<a class="social-link" href="' +
+                        esc(S.social.github) +
+                        '" target="_blank" rel="noopener">' +
+                        ICONS.github +
+                        " GitHub</a>";
+                if (S.social.orcid)
+                    soc +=
+                        '<a class="social-link orcid" href="https://orcid.org/' +
+                        esc(S.social.orcid) +
+                        '" target="_blank" rel="noopener">' +
+                        ICONS.orcid +
+                        " ORCID iD</a>";
+
+                document.querySelector(".social-links").innerHTML = soc;
+
+                // ── About ────────────────────────────────────────────────
+                set(".about-text", "innerHTML", S.about);
+
+                // ── Timeline ─────────────────────────────────────────────
+                var tlHtml = S.timeline
+                    .map(function (e) {
+                        var date =
+                            e.start && e.end
+                                ? e.start + " – " + e.end
+                                : e.end
+                                  ? e.end
+                                  : e.start
+                                    ? e.start + " – Present"
+                                    : "Present";
+                        var cls = "timeline-entry " + e.type;
+                        var badge =
+                            e.type === "work"
+                                ? "badge-work"
+                                : "badge-education";
+                        var label = e.type === "work" ? "Work" : "Education";
+
+                        var items = (e.details || [])
+                            .map(function (d) {
+                                return "<li>" + esc(d) + "</li>";
+                            })
+                            .join("");
+
+                        var linksHtml = "";
+                        if (e.links && e.links.length) {
+                            var chips = e.links
+                                .map(function (lnk) {
+                                    if (lnk.pub)
+                                        return (
+                                            '<a class="entry-link" data-pub="' +
+                                            esc(lnk.pub) +
+                                            '" href="#pub-' +
+                                            esc(lnk.pub) +
+                                            '">' +
+                                            ICONS.paper +
+                                            " " +
+                                            esc(lnk.label) +
+                                            "</a>"
+                                        );
+                                    if (lnk.url)
+                                        return (
+                                            '<a class="entry-link" href="' +
+                                            esc(lnk.url) +
+                                            '" target="_blank" rel="noopener">' +
+                                            ICONS.external +
+                                            " " +
+                                            esc(lnk.label) +
+                                            "</a>"
+                                        );
+                                    return "";
+                                })
+                                .join("");
+                            linksHtml =
+                                '<div class="entry-links">' + chips + "</div>";
+                        }
+
+                        return (
+                            '<div class="' +
+                            cls +
+                            '">' +
+                            '<div class="entry-meta">' +
+                            '<span class="entry-date">' +
+                            esc(date) +
+                            "</span>" +
+                            '<span class="entry-badge ' +
+                            badge +
+                            '">' +
+                            label +
+                            "</span>" +
+                            "</div>" +
+                            '<h3 class="entry-title">' +
+                            esc(e.title) +
+                            "</h3>" +
+                            '<p class="entry-org">' +
+                            esc(e.org) +
+                            "</p>" +
+                            (items
+                                ? '<ul class="entry-details">' + items + "</ul>"
+                                : "") +
+                            linksHtml +
+                            "</div>"
+                        );
+                    })
+                    .join("");
+
+                document.querySelector(".timeline").innerHTML = tlHtml;
+
+                // ── Languages ────────────────────────────────────────────
+                if (S.languages && S.languages.length) {
+                    document.querySelector(".lang-list").innerHTML = S.languages.map(function (l) {
+                        return (
+                            '<div class="lang-item">' +
+                            '<span class="lang-name">' + esc(l.name) + "</span>" +
+                            '<span class="lang-level">' + esc(l.level) + "</span>" +
+                            "</div>"
+                        );
+                    }).join("");
+                } else {
+                    document.getElementById("langs").style.display = "none";
+                }
+
+                // ── Footer ───────────────────────────────────────────────
+                document.querySelector(".footer-text").innerHTML =
+                    esc(S.name) +
+                    " &mdash; " +
+                    esc(S.location) +
+                    ' &mdash; <a href="' +
+                    emailHref +
+                    '">' +
+                    esc(S.social.email.user) +
+                    "@" +
+                    esc(S.social.email.domain) +
+                    "</a>";
+
+                // ── ORCID link ───────────────────────────────────────────
+                if (S.social.orcid)
+                    document.querySelector(".pub-orcid-link").href =
+                        "https://orcid.org/" + S.social.orcid;
+
+                // ── Publications: fetch .bib, fall back to publications.js variable ──
+                var pubList = document.querySelector(".pub-list");
+
+                function renderPubs(bibtexText) {
+                    var pubs = parseBibtex(bibtexText)
+                        .map(formatBibtexEntry)
+                        .filter(function (p) { return p.year > 0; })
+                        .sort(function (a, b) { return b.year - a.year; });
+
+                    pubList.innerHTML = pubs.map(function (p) {
+                        return (
+                            '<article class="pub-item" id="pub-' + esc(p.key) + '">' +
+                            '<span class="pub-year">' + esc(String(p.year)) + "</span>" +
+                            "<div>" +
+                            '<p class="pub-title">' + esc(p.title) + "</p>" +
+                            '<p class="pub-meta">' + esc(p.authors) + " &middot; <em>" + esc(p.venue) + "</em></p>" +
+                            (p.doi ? '<a class="pub-doi" href="https://doi.org/' + esc(p.doi) + '" target="_blank" rel="noopener">doi: ' + esc(p.doi) + " ↗</a>" : "") +
+                            "</div>" +
+                            "</article>"
+                        );
+                    }).join("");
+                }
+
+                fetch("publications.bib")
+                    .then(function (r) {
+                        if (!r.ok) throw new Error();
+                        return r.text();
+                    })
+                    .then(renderPubs)
+                    .catch(function () {
+                        if (typeof PUBLICATIONS_BIB === "string") renderPubs(PUBLICATIONS_BIB);
+                    });
+
+                // ── Pub highlight: handle clicks on timeline [data-pub] links ──
+                document.addEventListener("click", function (e) {
+                    var link = e.target.closest("[data-pub]");
+                    if (!link) return;
+                    e.preventDefault();
+                    var key = link.getAttribute("data-pub");
+                    var target = document.getElementById("pub-" + key);
+                    if (!target) return;
+                    target.scrollIntoView({
+                        behavior: "smooth",
+                        block: "center",
+                    });
+                    // Restart animation even if already running
+                    target.classList.remove("pub-highlight");
+                    void target.offsetWidth;
+                    target.classList.add("pub-highlight");
+                    target.addEventListener(
+                        "animationend",
+                        function () {
+                            target.classList.remove("pub-highlight");
+                        },
+                        { once: true },
+                    );
+                });
+            })(SITE);
+
+        // ── Scroll-to-top button ───────────────────────────────────
+        (function () {
+            var btn = document.getElementById("back-to-top");
+            window.addEventListener("scroll", function () {
+                btn.classList.toggle("visible", window.scrollY > 400);
+            }, { passive: true });
+            btn.addEventListener("click", function () {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+            });
+        })();
+        </script>
+    </body>
+</html>
